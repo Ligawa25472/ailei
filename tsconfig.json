@@ -37,6 +37,13 @@
     ".next/dev/types/**/*.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "playwright-fixture.ts",
+    "test",
+    "tests",
+    "**/*.test.ts",
+    "**/*.spec.ts",
+    "**/*.test.tsx",
+    "**/*.spec.tsx"
   ]
 }
