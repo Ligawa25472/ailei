@@ -1,7 +1,8 @@
+import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import stcwBanner from "@/assets/stcw-banner.jpg";
 import stcwFirefighting from "@/assets/stcw-firefighting.jpg";
 import stcwCrisisMgmt from "@/assets/stcw-crisis-mgmt.jpg";
@@ -13,7 +14,7 @@ import stcwVpdsd from "@/assets/stcw-vpdsd.jpg";
 const SignUpButton = () => (
   <div className="flex justify-center py-10">
     <Link
-      to="/course-schedule"
+      href="/course-schedule"
       className="inline-block px-16 py-4 font-body font-semibold text-xs tracking-[0.25em] uppercase border-2 border-foreground text-foreground hover:bg-foreground hover:text-background transition-colors"
     >
       Sign Up Now
@@ -41,7 +42,7 @@ const CourseSection = ({ id, title, image, imageCaption, children }: CourseSecti
     {image ? (
       <div className="grid md:grid-cols-2 gap-8 items-start">
         <div>
-          <img
+          <Image
             src={image}
             alt={imageCaption || title}
             loading="lazy"
@@ -68,7 +69,7 @@ const STCWCourses = () => {
 
       {/* Hero Banner */}
       <div className="relative w-full h-[50vh] min-h-[400px]">
-        <img
+        <Image
           src={stcwBanner}
           alt="STCW Maritime Training"
           className="w-full h-full object-cover"
@@ -85,7 +86,7 @@ const STCWCourses = () => {
             </h1>
             <div className="mt-8">
               <Link
-                to="/contact"
+                href="/contact"
                 className="inline-block px-10 py-3 font-body font-semibold text-xs tracking-[0.25em] uppercase border-2 border-background text-background hover:bg-background hover:text-foreground transition-colors"
               >
                 Enroll Today

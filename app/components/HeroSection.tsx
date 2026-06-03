@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import lifestyleCruise from "@/assets/lifestyle-cruise.jpg";
 
 const HeroSection = () => {
@@ -39,13 +40,13 @@ const HeroSection = () => {
       </section>
 
       {/* Lifestyle photo strip */}
-      <section className="w-full">
-        <img
+      <section className="w-full relative h-[300px] md:h-[450px]">
+        <Image
           src={lifestyleCruise}
           alt="Young people enjoying life at sea"
-          className="w-full h-[300px] md:h-[450px] object-cover"
-          width={1920}
-          height={800}
+          className="w-full h-full object-cover"
+          fill
+          priority={false}
         />
       </section>
     </>

@@ -2,18 +2,18 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import yachtCta from "@/assets/yacht-cta.jpg";
 
 const CTASection = () => {
   return (
     <section className="relative py-24 md:py-32">
-      <img
+      <Image
         src={yachtCta}
         alt="Luxury yacht at sea"
         className="absolute inset-0 w-full h-full object-cover"
-        loading="lazy"
-        width={1920}
-        height={800}
+        fill
+        priority={false}
       />
       <div className="absolute inset-0 bg-foreground/30" />
       <div className="relative z-10 container mx-auto px-4 text-center max-w-3xl">

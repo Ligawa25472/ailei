@@ -1,18 +1,18 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import cruisePort from "@/assets/cruise-port.jpg";
 
 const QuoteSection = () => {
   return (
     <section className="relative py-24 md:py-32">
-      <img
+      <Image
         src={cruisePort}
         alt="Cruise ship in port"
         className="absolute inset-0 w-full h-full object-cover"
-        loading="lazy"
-        width={1920}
-        height={800}
+        fill
+        priority={false}
       />
       <div className="absolute inset-0 bg-foreground/40" />
       <div className="relative z-10 container mx-auto px-4 max-w-4xl text-center">

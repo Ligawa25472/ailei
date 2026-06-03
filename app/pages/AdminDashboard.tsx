@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 import { supabase } from "@/integrations/supabase/client";
 import { LogOut, ChevronDown, ChevronUp } from "lucide-react";
 
@@ -31,7 +31,7 @@ interface Booking {
 }
 
 const AdminDashboard = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState(true);
   const [expandedId, setExpandedId] = useState<string | null>(null);
@@ -40,13 +40,13 @@ const AdminDashboard = () => {
     const checkAuth = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) {
-        navigate("/admin-login");
+        router.push("/admin-login");
         return;
       }
       fetchBookings();
     };
     checkAuth();
-  }, [navigate]);
+  }, [router]);
 
   const fetchBookings = async () => {
     const { data, error } = await supabase
@@ -59,7 +59,7 @@ const AdminDashboard = () => {
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    navigate("/admin-login");
+    router.push("/admin-login");
   };
 
   if (loading) {

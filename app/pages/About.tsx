@@ -1,7 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 const About = () => {
   return (
@@ -55,7 +55,7 @@ const About = () => {
           </motion.div>
           <div className="mt-12 text-center">
             <Link
-              to="/contact"
+              href="/contact"
               className="inline-block px-10 py-3 font-body font-semibold text-xs tracking-[0.25em] uppercase border-2 border-foreground text-foreground hover:bg-foreground hover:text-background transition-colors"
             >
               Get In Touch

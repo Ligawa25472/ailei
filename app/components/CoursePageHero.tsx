@@ -2,9 +2,10 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image, { StaticImageData } from "next/image";
 
 interface CoursePageHeroProps {
-  bannerImage: string;
+  bannerImage: string | StaticImageData;
   subtitle: string;
   title: string;
   ctaText?: string;
@@ -13,7 +14,7 @@ interface CoursePageHeroProps {
 
 const CoursePageHero = ({ bannerImage, subtitle, title, ctaText = "Enroll Today", ctaLink = "/course-schedule" }: CoursePageHeroProps) => (
   <div className="relative w-full h-[50vh] min-h-[400px]">
-    <img src={bannerImage} alt={title} className="w-full h-full object-cover" />
+    <Image src={bannerImage} alt={title} className="w-full h-full object-cover" fill priority={false} />
     <div className="absolute inset-0 bg-foreground/40 flex items-center justify-center">
       <div className="text-center">
         <p className="font-display text-lg md:text-xl text-background/80 tracking-widest uppercase mb-2">

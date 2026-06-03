@@ -2,7 +2,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import stcwBanner from "@/assets/stcw-banner.jpg";
 import stcwFirefighting from "@/assets/stcw-firefighting.jpg";
 import stcwCrisisMgmt from "@/assets/stcw-crisis-mgmt.jpg";
@@ -25,7 +25,7 @@ const SignUpButton = () => (
 interface CourseSectionProps {
   id: string;
   title: string;
-  image?: any;
+  image?: string | StaticImageData;
   imageCaption?: string;
   children: React.ReactNode;
 }

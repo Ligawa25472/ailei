@@ -1,11 +1,22 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation"; 
+import Link from "next/link";
+import Image from "next/image";
 import { Calendar, X, ShoppingCart } from "lucide-react";
 import scheduleBanner from "@/assets/schedule-banner.jpg";
 import academyLogo from "@/assets/academy-logo.png";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "@/contexts/CartContext";
 import { supabase } from "@/integrations/supabase/client";
+
+// Paystack type declaration
+declare global {
+  interface Window {
+    PaystackPop: {
+      setup: (config: any) => any;
+    };
+  }
+}
 
 // Paystack Public Key
 const PAYSTACK_PUBLIC_KEY = "pk_live_ce5e0251204496c9ab247070556d4fe20c4d7949";
@@ -29,10 +40,10 @@ const hearAboutOptions = [
 ];
 
 const BookingCheckout = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const { items, removeItem, clearCart, totalCost, totalItems } = useCart();
   const [confirmAmount, setConfirmAmount] = useState("");
-  const [paymentMethod, setPaymentMethod] = useState<"pesapal" | "bank">("pesapal");
+  const [paymentMethod, setPaymentMethod] = useState<"pesapal" | "bank" | "paystack">("paystack");
   const [processingPayment, setProcessingPayment] = useState(false);
 
   const [currentStep, setCurrentStep] = useState<Step>("BOOKER");
@@ -94,17 +105,21 @@ const BookingCheckout = () => {
 
       {/* Banner */}
       <div className="relative w-full h-48 md:h-64">
-        <img
+        <Image
           src={scheduleBanner}
           alt="Course Schedule"
           className="w-full h-full object-cover"
+          fill
+          priority={false}
         />
         <div className="absolute inset-0 flex items-center">
           <div className="container mx-auto px-4 max-w-4xl">
-            <img
+            <Image
               src={academyLogo}
               alt="Ahlei"
               className="h-24 w-24 md:h-32 md:w-32 object-contain bg-background/90 rounded-lg p-3"
+              width={128}
+              height={128}
             />
           </div>
         </div>
@@ -115,13 +130,13 @@ const BookingCheckout = () => {
         <div className="border-b border-border py-3">
           <div className="container mx-auto px-4 max-w-4xl flex justify-between items-center">
             <Link
-              to="/course-schedule"
+              href="/course-schedule"
               className="font-body text-sm uppercase tracking-widest text-ocean hover:text-foreground transition-colors"
             >
               Schedule
             </Link>
             <Link
-              to="/course-schedule"
+              href="/course-schedule"
               className="font-body text-sm uppercase tracking-widest text-ocean hover:text-foreground transition-colors"
             >
               Exit Booking System
@@ -171,7 +186,7 @@ const BookingCheckout = () => {
                   Your basket is empty.
                 </p>
                 <Link
-                  to="/course-schedule"
+                  href="/course-schedule"
                   className="px-8 py-3 bg-ocean text-background font-body font-semibold text-sm rounded-sm hover:bg-ocean/90 transition-colors inline-block"
                 >
                   Browse courses
@@ -257,7 +272,7 @@ const BookingCheckout = () => {
                 {/* Actions */}
                 <div className="flex items-center justify-between">
                   <Link
-                    to="/course-schedule"
+                    href="/course-schedule"
                     className="px-6 py-2 border border-border font-body text-sm text-foreground hover:bg-muted transition-colors rounded-sm"
                   >
                     Select more
@@ -712,8 +727,6 @@ const BookingCheckout = () => {
                             cancellation_agreed: details.cancellationAgreed,
                             courses: items.map(i => ({ title: i.title, date: i.date, duration: i.duration, price: i.price, quantity: i.quantity })),
                             total_cost: totalCost,
-                            payment_method: "paystack",
-                            paystack_reference: response.reference,
                           });
                           setProcessingPayment(false);
                           goToStep("COMPLETE");
@@ -745,7 +758,6 @@ const BookingCheckout = () => {
                         courses: items.map(i => ({ title: i.title, date: i.date, duration: i.duration, price: i.price, quantity: i.quantity })),
                         total_cost: totalCost,
                         confirm_amount: confirmAmount,
-                        payment_method: "bank",
                       });
                       setProcessingPayment(false);
                       goToStep("COMPLETE");
@@ -776,7 +788,7 @@ const BookingCheckout = () => {
               Thank you for booking with Ahlei. A confirmation email has been sent with your booking details.
             </p>
             <Link
-              to="/"
+              href="/"
               className="px-8 py-3 bg-ocean text-background font-body font-semibold text-sm rounded-sm hover:bg-ocean/90 transition-colors inline-block"
             >
               Return to Home
@@ -815,7 +827,7 @@ const BookingCheckout = () => {
               </div>
               <p className="font-body text-sm text-muted-foreground mt-4">
                 View our{" "}
-                <Link to="/contact" className="text-ocean underline">refund policy</Link>.
+                <Link href="/contact" className="text-ocean underline">refund policy</Link>.
               </p>
             </div>
           </div>

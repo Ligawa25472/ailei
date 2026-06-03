@@ -162,17 +162,6 @@ const Navbar = () => {
                   >
                     {link.label}
                   </Link>
-                )}
-                  </div>
-                ) : (
-                  <Link
-                    key={link.label}
-                    to={link.href!}
-                    onClick={() => setMobileOpen(false)}
-                    className="block px-3 py-2 text-xs font-body font-semibold tracking-[0.15em] uppercase text-muted-foreground hover:text-foreground"
-                  >
-                    {link.label}
-                  </Link>
                 )
               )}
             </div>

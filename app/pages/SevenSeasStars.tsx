@@ -29,7 +29,7 @@ const SevenSeasStars = () => (
           <p className="font-body text-foreground leading-relaxed mb-6">
             For booking information, please email <strong>info@ahlei.com</strong>
           </p>
-          <SignUpButton to="/contact" />
+          <SignUpButton href="/contact" />
         </motion.div>
       </div>
     </section>

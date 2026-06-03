@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import shieldMaritime from "@/assets/shield-maritime.png";
 import shieldYacht from "@/assets/shield-yacht.png";
 import shieldEntertainment from "@/assets/shield-entertainment.png";
@@ -46,12 +47,11 @@ const CoursesSection = () => {
             >
               <Link href={course.href} className="group block">
                 <div className="flex justify-center mb-6">
-                  <img
+                  <Image
                     src={course.image}
                     alt={course.description}
-                    loading="lazy"
-                    width={512}
-                    height={512}
+                    width={176}
+                    height={176}
                     className="h-44 w-44 object-contain group-hover:scale-105 transition-transform duration-300"
                   />
                 </div>

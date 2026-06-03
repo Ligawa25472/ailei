@@ -1,8 +1,9 @@
+import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation"; import Link from "next/link";
 import { Calendar, MapPin, Users, FileText, ChevronDown, ChevronUp, Ban } from "lucide-react";
 import scheduleBanner from "@/assets/schedule-banner.jpg";
 import academyLogo from "@/assets/academy-logo.png";
@@ -52,7 +53,7 @@ const CourseSchedule = () => {
           </h1>
           <div className="flex items-center gap-4">
             <Link
-              to="/booking"
+              href="/booking"
               className="flex items-center gap-2 text-foreground hover:text-ocean transition-colors"
             >
               <span className="text-sm font-body">🛒</span>
@@ -64,7 +65,7 @@ const CourseSchedule = () => {
 
       {/* Banner */}
       <div className="relative w-full h-64 md:h-80">
-        <img
+        <Image
           src={scheduleBanner}
           alt="Course Schedule"
           className="w-full h-full object-cover"
@@ -73,7 +74,7 @@ const CourseSchedule = () => {
         />
         <div className="absolute inset-0 flex items-center">
           <div className="container mx-auto px-4 flex items-center gap-8">
-            <img
+            <Image
               src={academyLogo}
               alt="Maritime Advanced Preparatory Academy"
               className="h-32 w-32 md:h-44 md:w-44 object-contain bg-background rounded-lg p-4"
@@ -122,7 +123,7 @@ const CourseSchedule = () => {
             Schedule
           </h2>
           <Link
-            to="/stcw-courses"
+            href="/stcw-courses"
             className="font-body text-sm uppercase tracking-widest text-ocean hover:text-foreground transition-colors"
           >
             Exit Booking System
@@ -242,7 +243,7 @@ const CourseSchedule = () => {
               </div>
               <p className="font-body text-sm text-muted-foreground mt-4">
                 View our{" "}
-                <Link to="/contact" className="text-ocean underline">
+                <Link href="/contact" className="text-ocean underline">
                   refund policy
                 </Link>
                 .
@@ -343,7 +344,7 @@ const EventDetail = ({
   setExpandedInfo: (v: boolean) => void;
 }) => {
   const { addItem } = useCart();
-  const navigate = useNavigate();
+  const router = useRouter();
   const statusColor =
     event.status === "fully-booked"
       ? "text-destructive"
@@ -480,13 +481,13 @@ const EventDetail = ({
 
         <div className="flex items-center justify-between mt-4 pt-4 border-t border-border">
           <Link
-            to="/course-schedule"
+            href="/course-schedule"
             className="font-body text-sm text-ocean hover:text-foreground transition-colors"
           >
             Select more
           </Link>
           <Link
-            to="/booking"
+            href="/booking"
             onClick={(e) => {
               e.preventDefault();
               addItem({
@@ -498,7 +499,7 @@ const EventDetail = ({
                 location: event.location,
                 ticketLabel: event.ticketLabel,
               });
-              navigate("/booking");
+              router.push("/booking");
             }}
             className="px-8 py-3 bg-ocean text-background font-body font-semibold text-sm tracking-wider rounded-sm hover:bg-ocean/90 transition-colors"
           >

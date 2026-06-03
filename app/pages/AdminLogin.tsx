@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 import { supabase } from "@/integrations/supabase/client";
 
 const AdminLogin = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -18,7 +18,7 @@ const AdminLogin = () => {
       setError(error.message);
       setLoading(false);
     } else {
-      navigate("/admin");
+      router.push("/admin");
     }
   };
 
