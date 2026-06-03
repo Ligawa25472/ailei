@@ -1,0 +1,21 @@
+{
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/about/page": "/about",
+  "/admin-login/page": "/admin-login",
+  "/admin/page": "/admin",
+  "/blog/page": "/blog",
+  "/booking/page": "/booking",
+  "/captains-license/page": "/captains-license",
+  "/contact/page": "/contact",
+  "/course-schedule/page": "/course-schedule",
+  "/course/[slug]/page": "/course/[slug]",
+  "/cruise-ship-entertainment/page": "/cruise-ship-entertainment",
+  "/deckhand-courses/page": "/deckhand-courses",
+  "/page": "/",
+  "/seven-seas-stars/page": "/seven-seas-stars",
+  "/stcw-courses/page": "/stcw-courses",
+  "/stcw-online-courses/page": "/stcw-online-courses",
+  "/yacht-deckhand-courses/page": "/yacht-deckhand-courses",
+  "/yacht-interior-courses/page": "/yacht-interior-courses"
+}

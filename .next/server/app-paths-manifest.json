@@ -1,0 +1,21 @@
+{
+  "/_global-error/page": "app/_global-error/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/about/page": "app/about/page.js",
+  "/admin-login/page": "app/admin-login/page.js",
+  "/admin/page": "app/admin/page.js",
+  "/blog/page": "app/blog/page.js",
+  "/booking/page": "app/booking/page.js",
+  "/captains-license/page": "app/captains-license/page.js",
+  "/contact/page": "app/contact/page.js",
+  "/course-schedule/page": "app/course-schedule/page.js",
+  "/course/[slug]/page": "app/course/[slug]/page.js",
+  "/cruise-ship-entertainment/page": "app/cruise-ship-entertainment/page.js",
+  "/deckhand-courses/page": "app/deckhand-courses/page.js",
+  "/page": "app/page.js",
+  "/seven-seas-stars/page": "app/seven-seas-stars/page.js",
+  "/stcw-courses/page": "app/stcw-courses/page.js",
+  "/stcw-online-courses/page": "app/stcw-online-courses/page.js",
+  "/yacht-deckhand-courses/page": "app/yacht-deckhand-courses/page.js",
+  "/yacht-interior-courses/page": "app/yacht-interior-courses/page.js"
+}
