@@ -9,7 +9,7 @@ export interface EmailRecipient {
 }
 
 export interface SendEmailProps {
-  to: EmailRecipient | EmailRecipient[];
+  to: string | EmailRecipient | (string | EmailRecipient)[];
   subject: string;
   html?: string;
   text?: string;
