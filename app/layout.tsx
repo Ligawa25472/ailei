@@ -40,6 +40,9 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/favicon.png" type="image/png" />
         <script async src="https://js.paystack.co/v1/inline.js"></script>
+        {/* Zoho SalesIQ Live Chat Widget */}
+        <script>{`window.$zoho=window.$zoho || {};$zoho.salesiq=$zoho.salesiq||{ready:function(){}}`}</script>
+        <script id="zsiqscript" src="https://salesiq.zohopublic.com/widget?wc=siqbd8af5c4329c14486412a147b2a3980e" defer></script>
       </head>
       <body className="min-h-screen bg-background text-foreground">
         <Providers>
