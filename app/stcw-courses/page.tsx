@@ -25,7 +25,7 @@ const SignUpButton = () => (
 interface CourseSectionProps {
   id: string;
   title: string;
-  image?: string | StaticImageData;
+  image?: any;
   imageCaption?: string;
   children: React.ReactNode;
 }
@@ -46,8 +46,6 @@ const CourseSection = ({ id, title, image, imageCaption, children }: CourseSecti
             src={image}
             alt={imageCaption || title}
             className="w-full max-w-md"
-            width={400}
-            height={300}
           />
           {imageCaption && (
             <p className="font-body text-sm text-muted-foreground mt-2">{imageCaption}</p>
