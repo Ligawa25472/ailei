@@ -708,7 +708,9 @@ const BookingCheckout = () => {
                         },
                         onSuccess: async function(response: any) {
                           // Save booking to database after successful payment
-                          await supabase.from("bookings").insert({
+                          const { data: { session } } = await supabase.auth.getSession();
+                          const userId = session?.user?.id;
+                          const bookingPayload: any = {
                             booker_email: bookerEmail,
                             first_name: details.firstName,
                             last_name: details.lastName,
@@ -729,7 +731,9 @@ const BookingCheckout = () => {
                             cancellation_agreed: details.cancellationAgreed,
                             courses: items.map(i => ({ title: i.title, date: i.date, duration: i.duration, price: i.price, quantity: i.quantity })),
                             total_cost: totalCost,
-                          });
+                          };
+                          if (userId) bookingPayload.user_id = userId;
+                          await supabase.from("bookings").insert(bookingPayload);
                           setProcessingPayment(false);
                           goToStep("COMPLETE");
                           clearCart();
@@ -738,7 +742,9 @@ const BookingCheckout = () => {
                       handler.openIframe();
                     } else {
                       // Bank transfer - save booking as pending
-                      await supabase.from("bookings").insert({
+                      const { data: { session } } = await supabase.auth.getSession();
+                      const userId = session?.user?.id;
+                      const bookingPayload: any = {
                         booker_email: bookerEmail,
                         first_name: details.firstName,
                         last_name: details.lastName,
@@ -760,7 +766,9 @@ const BookingCheckout = () => {
                         courses: items.map(i => ({ title: i.title, date: i.date, duration: i.duration, price: i.price, quantity: i.quantity })),
                         total_cost: totalCost,
                         confirm_amount: confirmAmount,
-                      });
+                      };
+                      if (userId) bookingPayload.user_id = userId;
+                      await supabase.from("bookings").insert(bookingPayload);
                       setProcessingPayment(false);
                       goToStep("COMPLETE");
                       clearCart();

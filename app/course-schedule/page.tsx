@@ -64,7 +64,7 @@ export default function CourseSchedulePage() {
                   </div>
                   <div className="text-right md:text-left">
                     <Link
-                      href="/booking"
+                      href={`/booking?eventId=${event.id}`}
                       className="inline-flex items-center rounded-sm border border-foreground px-4 py-2 text-sm font-semibold uppercase tracking-[0.25em] text-foreground hover:bg-foreground hover:text-background transition-colors"
                     >
                       Reserve Spot
