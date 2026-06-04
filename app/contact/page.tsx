@@ -9,11 +9,38 @@ import { useToast } from "@/hooks/use-toast";
 export default function Contact() {
   const { toast } = useToast();
   const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({ title: "Message Sent!", description: "We'll get back to you within 24 hours." });
-    setForm({ name: "", email: "", phone: "", message: "" });
+    setLoading(true);
+
+    try {
+      const response = await fetch("/api/emails/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          from: "noreply@ahlei.com",
+          to: ["admissions@aihlei.org"],
+          bcc: ["safiinc2023@gmail.com"],
+          subject: `New contact form submission from ${form.name}`,
+          html: `<p><strong>Name:</strong> ${form.name}</p><p><strong>Email:</strong> ${form.email}</p><p><strong>Phone:</strong> ${form.phone}</p><p><strong>Message:</strong></p><p>${form.message.replace(/\n/g, "<br />")}</p>`,
+          reply_to: form.email,
+        }),
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error || "There was a problem sending your message.");
+      }
+
+      toast({ title: "Message sent", description: "Your request has been sent to admissions." });
+      setForm({ name: "", email: "", phone: "", message: "" });
+    } catch (error) {
+      toast({ title: "Send failed", description: error instanceof Error ? error.message : "Unable to send message." });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

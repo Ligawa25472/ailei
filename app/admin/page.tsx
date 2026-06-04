@@ -118,6 +118,13 @@ export default function AdminDashboardPage() {
             <p className="font-body text-sm text-muted-foreground">Manage bookings, confirm registrations, and monitor course requests.</p>
           </div>
           <button
+            type="button"
+            onClick={() => router.push("/admin/courses")}
+            className="inline-flex items-center gap-2 rounded-md bg-ocean px-4 py-2 text-sm font-semibold text-background hover:bg-ocean/90 transition"
+          >
+            Manage Courses
+          </button>
+          <button
             onClick={handleLogout}
             className="inline-flex items-center gap-2 rounded-md border border-border px-4 py-2 text-sm font-semibold text-foreground hover:bg-muted transition"
           >

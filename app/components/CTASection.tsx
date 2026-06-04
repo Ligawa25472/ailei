@@ -41,10 +41,10 @@ const CTASection = () => {
           transition={{ delay: 0.2 }}
         >
           <Link
-            href="/contact"
+            href="/booking"
             className="inline-block px-14 py-4 font-body font-semibold text-xs tracking-[0.25em] uppercase border-2 border-background text-background hover:bg-background hover:text-foreground transition-colors"
           >
-            Contact Us
+            Book Now
           </Link>
         </motion.div>
       </div>

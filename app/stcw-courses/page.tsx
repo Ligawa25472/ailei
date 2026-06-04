@@ -16,7 +16,7 @@ import stcwVpdsd from "@/assets/stcw-vpdsd.jpg";
 const SignUpButton = () => (
   <div className="flex justify-center py-10">
     <Link
-      href="/course-schedule"
+      href="/booking"
       className="inline-block px-16 py-4 font-body font-semibold text-xs tracking-[0.25em] uppercase border-2 border-foreground text-foreground hover:bg-foreground hover:text-background transition-colors"
     >
       Sign Up Now
@@ -85,7 +85,7 @@ export default function STCWCourses() {
             </h1>
             <div className="mt-8">
               <Link
-                href="/contact"
+                href="/booking"
                 className="inline-block px-10 py-3 font-body font-semibold text-xs tracking-[0.25em] uppercase border-2 border-background text-background hover:bg-background hover:text-foreground transition-colors"
               >
                 Enroll Today
@@ -118,7 +118,7 @@ export default function STCWCourses() {
               </a>
             ))}
             <a
-              href="/contact"
+              href="/course-schedule"
               className="font-body text-ocean hover:text-foreground transition-colors text-center underline mt-2"
             >
               Course Schedule

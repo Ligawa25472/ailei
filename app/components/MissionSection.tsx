@@ -32,10 +32,10 @@ const MissionSection = () => {
           transition={{ delay: 0.3 }}
         >
           <Link
-            href="/contact"
+            href="/booking"
             className="inline-block px-12 py-4 font-body font-semibold text-xs tracking-[0.25em] uppercase border-2 border-foreground text-foreground hover:bg-foreground hover:text-background transition-colors"
           >
-            Contact Us
+            Book Now
           </Link>
         </motion.div>
       </div>

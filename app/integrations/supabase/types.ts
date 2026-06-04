@@ -98,6 +98,48 @@ export type Database = {
         }
         Relationships: []
       }
+      courses: {
+        Row: {
+          id: string
+          slug: string
+          title: string
+          category: string
+          description: string | null
+          price_usd: number
+          duration: string | null
+          location: string | null
+          metadata: Json | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          slug: string
+          title: string
+          category: string
+          description?: string | null
+          price_usd: number
+          duration?: string | null
+          location?: string | null
+          metadata?: Json | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          slug?: string
+          title?: string
+          category?: string
+          description?: string | null
+          price_usd?: number
+          duration?: string | null
+          location?: string | null
+          metadata?: Json | null
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

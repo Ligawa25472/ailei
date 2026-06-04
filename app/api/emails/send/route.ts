@@ -4,6 +4,8 @@ const RESEND_API_KEY = process.env.RESEND_API_KEY;
 
 interface SendEmailRequest {
   to: string[];
+  cc?: string[];
+  bcc?: string[];
   subject: string;
   html?: string;
   text?: string;
@@ -23,6 +25,8 @@ export async function POST(request: NextRequest) {
     const body = (await request.json()) as SendEmailRequest;
     const {
       to,
+      cc,
+      bcc,
       subject,
       html,
       text,
@@ -39,6 +43,8 @@ export async function POST(request: NextRequest) {
       body: JSON.stringify({
         from,
         to,
+        cc,
+        bcc,
         subject,
         html,
         text,

@@ -65,12 +65,19 @@ export default function DashboardPage() {
     <div className="min-h-screen bg-background">
       <Navbar />
       <div className="border-b border-border py-4">
-        <div className="container mx-auto px-4 max-w-6xl flex items-center justify-between">
+        <div className="container mx-auto px-4 max-w-6xl flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
             <h1 className="font-display text-2xl text-foreground">My Bookings</h1>
             <p className="font-body text-sm text-muted-foreground">View and manage your course registrations and payments.</p>
           </div>
-          <button onClick={handleLogout} className="inline-flex items-center gap-2 rounded-md border border-border px-4 py-2 text-sm font-semibold text-foreground hover:bg-muted transition">Sign Out</button>
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+            <button onClick={() => router.push("/booking")} className="inline-flex items-center justify-center rounded-md bg-ocean px-4 py-2 text-sm font-semibold text-background hover:bg-ocean/90 transition">
+              Reserve a course
+            </button>
+            <button onClick={handleLogout} className="inline-flex items-center justify-center rounded-md border border-border px-4 py-2 text-sm font-semibold text-foreground hover:bg-muted transition">
+              Sign Out
+            </button>
+          </div>
         </div>
       </div>
 
@@ -82,6 +89,9 @@ export default function DashboardPage() {
         {bookings.length === 0 ? (
           <div className="rounded-3xl border border-border bg-card p-12 text-center">
             <p className="font-body text-sm text-muted-foreground">You have no bookings yet.</p>
+            <button onClick={() => router.push("/booking")} className="mt-6 inline-flex rounded-md bg-ocean px-5 py-3 text-sm font-semibold text-background hover:bg-ocean/90 transition">
+              Reserve a course now
+            </button>
           </div>
         ) : (
           <div className="space-y-4">

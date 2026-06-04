@@ -18,6 +18,7 @@ declare global {
 }
 
 const PAYSTACK_PUBLIC_KEY = process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY || "pk_live_ce5e0251204496c9ab247070556d4fe20c4d7949";
+const PAYSTACK_EXCHANGE_RATE = 134;
 
 const defaultFormState = {
   bookerEmail: "",
@@ -62,10 +63,45 @@ function BookingContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const eventId = searchParams?.get("eventId") || "";
-  const selectedEvent = useMemo(
-    () => scheduleData.find((event) => event.id === eventId) ?? scheduleData[0],
-    [eventId]
-  );
+  const courseSlug = searchParams?.get("courseSlug") || "";
+
+  type CourseRecord = {
+    id: string;
+    slug: string;
+    title: string;
+    category: string;
+    description: string | null;
+    price_usd: number;
+    duration: string | null;
+    location: string | null;
+    metadata: any | null;
+  };
+
+  const [course, setCourse] = useState<CourseRecord | null>(null);
+  const [courseLoading, setCourseLoading] = useState(false);
+  const [courseError, setCourseError] = useState("");
+
+  const selectedEvent = useMemo(() => {
+    if (course) {
+      return {
+        id: course.slug,
+        date: "",
+        day: "",
+        duration: course.duration || "",
+        title: course.title,
+        location: course.location || "",
+        address: course.location || "",
+        price: course.price_usd,
+        status: "available" as const,
+        category: course.category || "",
+        details: course.description || "",
+        month: "",
+        ticketLabel: course.duration || "",
+      } as CourseEvent;
+    }
+
+    return scheduleData.find((event) => event.id === eventId) ?? scheduleData[0];
+  }, [course, eventId]);
 
   const [event, setEvent] = useState<CourseEvent>(selectedEvent);
   const [form, setForm] = useState(defaultFormState);
@@ -89,6 +125,46 @@ function BookingContent() {
     loadSession();
   }, []);
 
+  useEffect(() => {
+    if (!courseSlug) {
+      setCourse(null);
+      setCourseError("");
+      return;
+    }
+
+    let active = true;
+    setCourseLoading(true);
+    setCourseError("");
+
+    fetch(`/api/courses?slug=${encodeURIComponent(courseSlug)}`)
+      .then(async (response) => {
+        const payload = await response.json();
+        if (!response.ok) {
+          throw new Error(payload.error || "Unable to load course details.");
+        }
+        return payload;
+      })
+      .then((courseData) => {
+        if (!active) return;
+        if (!courseData) {
+          setCourseError("Selected course not found.");
+          return;
+        }
+        setCourse(courseData as CourseRecord);
+      })
+      .catch((error) => {
+        if (!active) return;
+        setCourseError(error instanceof Error ? error.message : "Unable to load course details.");
+      })
+      .finally(() => {
+        if (active) setCourseLoading(false);
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [courseSlug]);
+
   const updateForm = (field: keyof typeof defaultFormState, value: string | boolean) => {
     setForm((prev) => ({ ...prev, [field]: value }));
   };
@@ -110,6 +186,11 @@ function BookingContent() {
 
     if (!form.firstName || !form.lastName || !form.email || !form.bookerEmail || !form.address || !form.city || !form.phone) {
       setStatusMessage("Please complete all required fields before continuing.");
+      return;
+    }
+
+    if (courseSlug && courseError) {
+      setStatusMessage("Selected course details could not be loaded. Please refresh or choose another course.");
       return;
     }
 
@@ -162,14 +243,18 @@ function BookingContent() {
         return;
       }
 
+      const amountInKsh = Math.round(event.price * PAYSTACK_EXCHANGE_RATE * 100);
       const handler = window.PaystackPop.setup({
         key: PAYSTACK_PUBLIC_KEY,
         email: form.email,
-        amount: event.price * 100,
+        amount: amountInKsh,
         ref: `AHLEI-${Date.now()}`,
         metadata: {
           eventId: event.id,
           eventTitle: event.title,
+          currency: "KSH",
+          displayCurrency: "USD",
+          displayAmount: event.price,
         },
         onClose: () => {
           setLoading(false);
@@ -273,6 +358,9 @@ function BookingContent() {
 
             <div className="rounded-3xl border border-border bg-card p-8">
               <form onSubmit={handleSubmit} className="space-y-5">
+                {courseError && (
+                  <div className="rounded-md bg-destructive/10 px-4 py-3 text-sm text-destructive">{courseError}</div>
+                )}
                 {statusMessage && (
                   <div className="rounded-md bg-destructive/10 px-4 py-3 text-sm text-destructive">{statusMessage}</div>
                 )}

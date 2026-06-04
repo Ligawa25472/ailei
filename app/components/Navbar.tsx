@@ -33,6 +33,7 @@ const leftLinks = [
 ];
 
 const rightLinks = [
+  { label: "Courses", href: "/courses" },
   { label: "Captains License", href: "/captains-license" },
   { label: "Blog", href: "/blog" },
   { label: "About Us", href: "/about" },

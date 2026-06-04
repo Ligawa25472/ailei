@@ -246,10 +246,16 @@ export default function CourseLanding({ courseKey }: { courseKey: string }) {
                   <p className="font-display text-3xl text-ocean">{course.price}</p>
                 </div>
               </div>
-              <div className="mt-8">
+              <div className="mt-8 grid gap-3">
+                <Link
+                  href={`/booking?courseSlug=${courseKey}`}
+                  className="inline-flex w-full justify-center rounded-sm bg-ocean px-6 py-3 text-sm font-semibold uppercase tracking-[0.25em] text-background transition-colors hover:bg-ocean/90"
+                >
+                  Book & Pay
+                </Link>
                 <Link
                   href="/course-schedule"
-                  className="inline-flex w-full justify-center rounded-sm border border-foreground bg-foreground px-6 py-3 text-sm font-semibold uppercase tracking-[0.25em] text-background transition-colors hover:bg-foreground/90"
+                  className="inline-flex w-full justify-center rounded-sm border border-foreground bg-background px-6 py-3 text-sm font-semibold uppercase tracking-[0.25em] text-foreground transition-colors hover:bg-muted"
                 >
                   View Schedule
                 </Link>
